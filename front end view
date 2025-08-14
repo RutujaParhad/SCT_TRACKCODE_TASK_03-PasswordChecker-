@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 300px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background: #ff9800;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .strength {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .weak { color: red; }
+        .moderate { color: yellow; }
+        .strong { color: lightgreen; }
+        .feedback {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Password Strength Checker</h2>
+        <input type="password" id="password" placeholder="Enter your password">
+        <br>
+        <button onclick="checkStrength()">Check Strength</button>
+        <div id="strength" class="strength"></div>
+        <div id="feedback" class="feedback"></div>
+    </div>
+
+    <script>
+        function checkStrength() {
+            const password = document.getElementById("password").value;
+            let strength = 0;
+            let feedback = "";
+
+            if (password.length >= 8) {
+                strength++;
+            } else {
+                feedback += "Password should be at least 8 characters long.<br>";
+            }
+
+            if (/[A-Z]/.test(password)) {
+                strength++;
+            } else {
+                feedback += "Add at least one uppercase letter.<br>";
+            }
+
+            if (/[a-z]/.test(password)) {
+                strength++;
+            } else {
+                feedback += "Add at least one lowercase letter.<br>";
+            }
+
+            if (/[0-9]/.test(password)) {
+                strength++;
+            } else {
+                feedback += "Add at least one number.<br>";
+            }
+
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                strength++;
+            } else {
+                feedback += "Add at least one special character.<br>";
+            }
+
+            const strengthDiv = document.getElementById("strength");
+            const feedbackDiv = document.getElementById("feedback");
+
+            if (strength === 5) {
+                strengthDiv.textContent = "Strong Password ✅";
+                strengthDiv.className = "strength strong";
+                feedbackDiv.innerHTML = "";
+            } else if (strength >= 3) {
+                strengthDiv.textContent = "Moderate Password ⚠️";
+                strengthDiv.className = "strength moderate";
+                feedbackDiv.innerHTML = feedback;
+            } else {
+                strengthDiv.textContent = "Weak Password ❌";
+                strengthDiv.className = "strength weak";
+                feedbackDiv.innerHTML = feedback;
+            }
+        }
+    </script>
+</body>
+</html>
