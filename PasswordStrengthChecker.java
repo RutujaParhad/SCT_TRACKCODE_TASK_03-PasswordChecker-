@@ -37,11 +37,11 @@ public class PasswordStrengthChecker {
         }
 
         if (strength == 5) {
-            return "Strong password ✅";
+            return "Strong password ";
         } else if (strength >= 3) {
             return "Moderate password ⚠\nSuggestions:\n" + feedback.toString();
         } else {
-            return "Weak password ❌\nSuggestions:\n" + feedback.toString();
+            return "Weak password \nSuggestions:\n" + feedback.toString();
         }
     }
 
